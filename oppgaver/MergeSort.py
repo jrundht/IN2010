@@ -1,8 +1,9 @@
 array = [3, 4, 1, 6, 34, 2, 9, 6, 1, 73, 98, 12, 11, 62, 18, 37, 8]
 
-def merge(arr1, arr2, arr):
+def merge(arr1, arr2):
     i = 0
     j = 0
+    arr = []
     while i < len(arr1) and j < len(arr2):
         if arr1[i] <= arr2[j]:
             arr[i + j] = arr1[i]
@@ -23,10 +24,9 @@ def mergeSort(arr):
     if len(arr) <= 1:
         return arr
     i = int(len(arr)/2)
-    # print("Infinite recursion??")
-    arr1 = mergeSort(arr[0 : i])
+    arr1 = mergeSort(arr[: i])
     arr2 = mergeSort(arr[i : len(arr)])
-    return merge(arr1, arr2, arr)
+    return merge(arr1, arr2)
 
 print(array)
 print(mergeSort(array))

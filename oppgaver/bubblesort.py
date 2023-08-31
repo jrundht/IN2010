@@ -6,9 +6,7 @@ def BubbleSort(a):
         swapped = False
         for j in range (0, len(a) - i - 1, 1):
             if a[j] > a[j + 1]:
-                tmp = a[j]
-                a[j] = a[j + 1]
-                a[j + 1] = tmp
+                a[j], a[j + 1] = a[j + 1], a[j]
                 swapped = True
             k += 1
         if not swapped: 
