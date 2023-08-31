@@ -7,13 +7,18 @@ public class Sok {
         return false;
     }
     
+    public static int[] createOrderedArray(int length) {
+        int[] array = new int[length];
+        
+        for (int i = 0; i < length; i++) {
+            array[i] = (i + 1) * 2; // Multiplying by 2 to create an ordered array with even numbers
+        }
+        
+        return array;
+    }
+
     public static void main(String[] args){
-        int[] A = new int[5];
-        A[0] = 1;
-        A[1] = 2;
-        A[2] = 3;
-        A[3] = 4;
-        A[4] = 5;
+        int[] A = createOrderedArray(10);
         int x = Integer.parseInt(args[0]);
         // int x = 3;
 
