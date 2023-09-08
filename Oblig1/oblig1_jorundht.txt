@@ -1,0 +1,48 @@
+#Oppgave 1a
+N <- int(input())
+inp <- input()
+lst <- inp.split()
+S <- inp[0]
+x <- int(inp[1]) #ikke nødvendig å caste i pseudokode?
+
+A <- []
+
+Procedure push_back(x):
+    A.add(x)
+
+Procedure push_front(x):
+    B <- []                 #oppretter en ny liste
+    B.add(x)                #legger til x
+    for i <- 0 to |A|-1 do: #legge til alle elementer fra A
+        B.add(A[i])
+    A <- B                  #setter så A lik den nye listen
+
+Procedure push_middle(x):
+    i <- [(k+1)/2]
+    B <- A[0..i-1]
+    C <- A[i..k-1]
+    B.add(x)
+    for j <- 0 to |C|-1 do:
+        B.add(C[j])
+    A <- B
+
+Procedure get(i):
+    return A[i]
+
+
+#Oppgave 1c
+push_back: 
+    siden vi bare legger til bakerst i listen, vil kjøretiden være konstant O(1) 
+    uavhengig av størrelsen på listen
+
+push_front:
+    siden denne operasjonen benytter en for-løkke, vil kjøretiden bli O(N)
+
+push_middle:
+    siden listen A deles i to, og vi deretter setter inn elementet i midten før vi setter 
+    de to korte listene sammen igjen, vil kjøretiden bli O(N/2).
+
+#Oppgave 1d
+??
+
+#Oppgave 2
