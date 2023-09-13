@@ -58,14 +58,25 @@ class BinaryTree:
         v.element = u.element
         v.right = self.Remove(v.right, u.element)
         return v
-    
 
 def InRange(B, a, b):
     v = B.root
-    if a >= v.element: #go right
-        if a == v.element:
-            print(v.element)
-        while v
+    values = []
+    
+    def RangeHelper(v, a, b):
+        if v == None:
+            return
+        if v.element > a:
+            RangeHelper(v.left, a, b)
+        if a <= v.element <= b:
+            values.append(v.element)
+        if v.element < b:
+            RangeHelper(v.right, a, b)
+    RangeHelper(v, a, b)
+    
+    for i in range(len(values)):
+        print(min(values))
+        values.remove(min(values))
     
         
 B = BinaryTree()
@@ -77,3 +88,5 @@ B.Insert(v, 17)
 B.Insert(v, 5)
 B.Insert(v, 2)
 B.Insert(v, 7)
+
+InRange(B, 2, 17)
