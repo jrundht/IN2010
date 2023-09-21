@@ -33,6 +33,7 @@ class BinaryTree:
         elif x > v.element:
             return self.Search(v.right, x)
     
+    # O(h) where h is the height of the tree, given the value is in the tree
     def FindMin(self, v):
         if v.left != None:
             return self.FindMin(v.left)
