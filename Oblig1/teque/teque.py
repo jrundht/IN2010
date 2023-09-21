@@ -101,22 +101,12 @@ def push_back(x):
 def push_front(x):
     # A.prepend(x)
     global A
-    B = []
-    B.append(x)
-    for i in range(len(A)):
-        B.append(A[i])
-    A = B
+    A.insert(0, x)
 
 def push_middle(x):
     # A.middlepend(x)
     global A
-    i = (len(A)+1)//2
-    B = A[:i]
-    C = A[i:]
-    B.append(x)
-    for j in range (0, len(C)):
-        B.append(C[j])
-    A = B
+    A.insert((len(A)+1)/2, x)
 
 def get(i):
     # return A.get(i)
@@ -133,8 +123,7 @@ filename = input()
 A = []
 file = open(filename, "r")
 N = int(file.readline())
-lst = filename.split("_")
-filename = f"myOutput_{lst[1]}"
+filename = f"myOutput1_{N}"
 file1 = open(filename, "w")
 while N != 0:
     inp = file.readline()
@@ -150,7 +139,6 @@ while N != 0:
     else:
         file1.write(f"{A[x]}" + "\n")
         print(get(x))
-        # print(get(x))
     N -= 1
 file.close()   
 print(f"Time used: {(time.time_ns() - t)/1000}")

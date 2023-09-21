@@ -15,7 +15,6 @@ class Linkedlist:
     
     def get(self, pos):
         if pos > self.size - 1 or pos < 0:
-            # print("index out of range")
             return "index out of range"
         i = 0
         node = self.head
@@ -23,16 +22,6 @@ class Linkedlist:
             node = node.next
             i += 1
         return node.data
-    
-    def updateMiddleAp(self):
-        if self.size % 2 == 0:
-            self.middle = self.middle.next
-        elif self.size % 2 == 1:
-            self.middle = self.middle.prev
-    
-    def updateMiddlePre(self):
-        if self.size % 2 == 1:
-            self.middle = self.middle.prev
     
     def findMiddle(self):
         x = (self.size) // 2
@@ -51,9 +40,11 @@ class Linkedlist:
         self.tail.next = newNode
         newNode.prev = self.tail
         self.tail = newNode
-        if (self.size / 2) % 1 == 0:
+        if (self.size) % 2 != 0:
             self.middle = self.middle.next
-        #self.updateMiddleAp()
+        # self.print_list()
+        # print(self.size, " added back")
+        
     
     def prepend(self, x):
         newNode = Node(x)
@@ -64,40 +55,56 @@ class Linkedlist:
         self.head.prev = newNode
         newNode.next = self.head
         self.head = newNode
-        if ((self.size + 1)/ 2) % 1 == 0:
+        if (self.size) % 2 == 0:
             self.middle = self.middle.prev
-        # self.updateMiddlePre()
+        # self.print_list()
+        # print(self.size, " added front")
+        
 
     def middlepend(self, x):
         newNode = Node(x)
+        
         if self.size == 0 or self.size == 1:
             self.append(x)
             return
-
+        
+        # if size is even before insertion, insert the new node after the middle
         if self.size % 2 == 0: 
-            newNode.next = self.middle
-            newNode.prev = self.middle.prev
-            if self.middle.prev:
-                self.middle.prev.next = newNode
-            else:
-                self.head = newNode  
-            self.middle.prev = newNode
-            
-            self.middle = newNode
-        else:  
             newNode.next = self.middle.next
             newNode.prev = self.middle
             if self.middle.next:
                 self.middle.next.prev = newNode
             else:
-                self.tail = newNode 
+                self.tail = newNode
             self.middle.next = newNode
+            
+            # Update the middle pointer
+            self.middle = self.middle.next
+        
+        # if size is odd before insertion, insert the new node before the middle
+        else:  
+            newNode.next = self.middle
+            newNode.prev = self.middle.prev
+            if self.middle.prev:
+                self.middle.prev.next = newNode
+            else:
+                self.head = newNode
+            self.middle.prev = newNode
+            
+            # Update the middle pointer
+            self.middle = newNode
+        
         self.size += 1
+        # self.print_list()
+        # print(self.size, " added mid")
 
     def print_list(self):
         curr_node = self.head
         while curr_node:
-            print(curr_node.data, end=' -> ')
+            if curr_node == self.middle:
+                print(f"[{curr_node.data}]", end=' -> ')
+            else:
+                print(curr_node.data, end=' -> ')
             curr_node = curr_node.next
         print("None")
 
@@ -106,34 +113,19 @@ def push_back(x):
 
 def push_front(x):
     A.prepend(x)
-    # global A
-    # B = []
-    # B.append(x)
-    # for i in range(len(A)):
-    #     B.append(A[i])
-    # A = B
 
 def push_middle(x):
     A.middlepend(x)
-    # global A
-    # i = (len(A)+1)//2
-    # B = A[:i]
-    # C = A[i:]
-    # B.append(x)
-    # for j in range (0, len(C)):
-    #     B.append(C[j])
-    # A = B
 
 def get(i):
     return A.get(i)
 
 t = time.time_ns()
-filename = input()
+filename = input("Write the desired filename: ")
 A = Linkedlist()
 file = open(filename, "r")
 N = int(file.readline())
-lst = filename.split("_")
-filename = f"myOutput_{lst[1]}"
+filename = f"myOutput_{N}"
 file1 = open(filename, "w")
 while N != 0:
     inp = file.readline()
@@ -146,10 +138,10 @@ while N != 0:
         push_front(x)
     elif S == "push_middle":
         push_middle(x)
-    else:
-        file1.write(f"{get(x)}" + "\n")
+    elif S == "get":
+        # file1.write(f"{get(x)}" + "\n")
         print(get(x))
         # print(get(x))
     N -= 1
-print(f"Time used: {(time.time_ns() - t)/1000}")
+# print(f"Time used: {(time.time_ns() - t)/1000}")
 file.close() 
