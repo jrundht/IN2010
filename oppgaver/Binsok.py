@@ -10,7 +10,7 @@ def check(A, x):
     low = 0
     high = len(A)-1
     while low <= high:
-        i = int((low+high)/2) #sjekk midt i
+        i = (low+high)//2 # // blir int
         if A[i] == x:
             return True
         elif A[i] < x:
