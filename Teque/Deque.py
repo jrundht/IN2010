@@ -9,7 +9,11 @@ class Deque:
         self.head = None
         self.tail = None
         self.size = 0
+        
+    def getSize(self):
+        return self.size
     
+    # O(N)
     def get(self, pos):
         if pos > self.size - 1 or pos < 0:
             return "index out of range"
@@ -20,8 +24,9 @@ class Deque:
             node = node.next
             i += 1
         return node.data
-    
-    def append(self, x):
+
+    # O(1)
+    def push_back(self, x):
         newNode = Node(x)
         self.size += 1
         if not self.head:
@@ -30,8 +35,18 @@ class Deque:
         self.tail.next = newNode
         newNode.prev = self.tail
         self.tail = newNode
-
-    def prepend(self, x):
+    
+    # O(1)
+    def pop_back(self):
+        if self.tail.prev:
+            self.tail = self.tail.prev
+            self.tail.next = None
+        else:
+            self.head = self.tail = None
+        self.size -= 1
+        
+    #O(1)
+    def push_front(self, x):
         newNode = Node(x)
         self.size += 1
         if not self.head:
@@ -40,7 +55,17 @@ class Deque:
         self.head.prev = newNode
         newNode.next = self.head
         self.head = newNode
+    
+    #O(1)
+    def pop_front(self):
+        if self.head.next:
+            self.head = self.head.next
+            self.head.prev = None
+        else: 
+            self.head = self.front = None    
+        self.size -= 1
 
+    # O(N)
     def printQue(self):
         curr_node = self.head
         while curr_node:
