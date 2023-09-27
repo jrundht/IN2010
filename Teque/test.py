@@ -1,3 +1,5 @@
+from sys import stdin
+
 class Node:
     def __init__(self, x):
         self.data = x
@@ -9,18 +11,22 @@ class Deque:
         self.head = None
         self.tail = None
         self.size = 0
+        
+    def getSize(self):
+        return self.size
     
     def get(self, pos):
         if pos > self.size - 1 or pos < 0:
             return "index out of range"
         i = 0
         node = self.head
+        
         while i < pos:
             node = node.next
             i += 1
         return node.data
     
-    def append(self, x):
+    def push_back(self, x):
         newNode = Node(x)
         self.size += 1
         if not self.head:
@@ -29,8 +35,16 @@ class Deque:
         self.tail.next = newNode
         newNode.prev = self.tail
         self.tail = newNode
-
-    def prepend(self, x):
+    
+    def pop_back(self):
+        if self.tail.prev:
+            self.tail = self.tail.prev
+            self.tail.next = None
+        else:
+            self.head = self.tail = None
+        self.size -= 1
+        
+    def push_front(self, x):
         newNode = Node(x)
         self.size += 1
         if not self.head:
@@ -39,6 +53,14 @@ class Deque:
         self.head.prev = newNode
         newNode.next = self.head
         self.head = newNode
+        
+    def pop_front(self):
+        if self.head.next:
+            self.head = self.head.next
+            self.head.prev = None
+        else: 
+            self.head = self.front = None    
+        self.size -= 1
 
     def printQue(self):
         curr_node = self.head
@@ -67,8 +89,7 @@ class Teque:
 
     #O(N/2)
     def get(self, pos):
-        print("pos", pos, "front", self.front.size)
-        self.printQue()
+        # self.printQue()
         if pos > self.getSize() - 1 or pos < 0:
             return "index out of range"
         
@@ -79,68 +100,33 @@ class Teque:
             return self.back.get(pos)
 
     def checkEqulibrium(self):
-        if self.front.size < ((self.getSize())//2):
+        if self.back.size - self.front.size > 0: #front is always the shorter que if size=odd
             # move one element to front of back
-            if(self.front.size < 2): #basecase
-                self.front.append(self.back.head.data)
-                
-                self.back.head = self.back.head.next
-                self.back.head.prev = None
-                self.back.size -= 1
-            else:
-                self.moveForward()
-        elif self.back.size < ((self.getSize())//2):
-            #move one element to head of self.back
-            if(self.back.size < 2): #basecase
-                self.back.prepend(self.front.tail.data) 
-                
-                self.front.tail = self.front.tail.prev
-                self.front.tail.next = None
-                self.front.size -= 1
-            else:
-                self.moveBackward()
+            self.front.push_back(self.back.head.data)
+            self.back.pop_front() #remove element from head of back
             
-    def moveBackward(self):
-        #move the tail element of self.front to the head of self.back
-
-        # Add the element to the head of self.back
-        self.back.prepend(self.front.tail.data)
-        
-        #remove the element from the tail of self.front
-        self.front.tail = self.front.tail.prev
-        if self.front.tail:
-            self.front.tail.next = None
-        self.front.size -= 1
-        
-    def moveForward(self):
-        #move the head of self.back to the tail of self.front
-       
-        # Add the element to the tail of self.front
-        self.front.append(self.back.head.data)
-
-        # Remove the element from the head of self.back
-        self.back.head = self.back.head.next
-        if self.back.head:
-            self.back.head.prev = None
-        self.back.size -= 1
-        
+        elif self.front.size - self.back.size > 1:
+            #move one element to head of self.back
+            self.back.push_front(self.front.tail.data) 
+            self.front.pop_back() #remove element from tail of front
+            
     def push_front(self, x):
-        self.front.prepend(x)
+        self.front.push_front(x)
         self.checkEqulibrium()
         # self.printQue()
         
     def push_middle(self, x):
-        #add element at (k+1)//2 where k is number of elements
-        self.front.append(x)
+        # print(self.getSize())
+        # assert self.front.getSize() == (self.getSize()+1)//2, f"middle skal settes inn på plass: {(self.getSize()+1)//2}, men self.front.size = {self.front.getSize()}"
+        self.front.push_back(x)
         self.checkEqulibrium()
         # self.printQue()
         
     def push_back(self, x):
-        self.back.append(x)
+        self.back.push_back(x)
         self.checkEqulibrium()
         # self.printQue()
     
-        
     def printQue(self):
         print("Front: ")
         self.front.printQue()
@@ -149,9 +135,8 @@ class Teque:
         
 A = Teque()
 
-N = int(input())
-while N != 0:
-    inp = input()
+next(stdin) # toss
+for inp in stdin:
     lst = inp.split()
     S = lst[0]
     x = int(lst[1])
@@ -163,4 +148,3 @@ while N != 0:
         A.push_middle(x)
     else:
         print(A.get(x))
-    N -= 1
