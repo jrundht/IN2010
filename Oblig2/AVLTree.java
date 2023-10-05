@@ -1,6 +1,5 @@
 public class AVLTree extends BinarySearchTree{
     
-    
     public int height(Node v){
         if(v == null) return -1;
         return v.height;
