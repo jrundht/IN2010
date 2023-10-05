@@ -38,9 +38,11 @@ class TreeMain {
             }
             N--;
         }
+
         // System.out.println("\nTree:");
         // tree.printTree();
         // tree.inOrderTraversal(tree.root);
+        scanner.close();
     }
 }
     

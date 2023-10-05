@@ -2,6 +2,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class BalanceArray{
+    /*
+     * run: seq 20 | java BalanceArray | java BalanceChecker
+     */
     public static void balancer(ArrayList<Integer> array){
         if(array.size() < 2){
             System.out.println(array.get(0));
@@ -24,5 +27,6 @@ public class BalanceArray{
             sortedList.add(scanner.nextInt());
         }
         balancer(sortedList);
+        scanner.close();
     }
 }
