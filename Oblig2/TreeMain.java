@@ -1,9 +1,15 @@
 import java.util.Scanner;
-
-public class main {
+class TreeMain {
+    
+    /*
+     * To run the AVL version all you need to do is comment out the BST
+     * and "uncomment" AVLTree
+     *
+    */
     public static void main(String[] args){
-        // BinarySearchTree tree = new BinarySearchTree();
-        AVLTree tree = new AVLTree();
+        BinarySearchTree tree = new BinarySearchTree(); 
+        // AVLTree tree = new AVLTree();
+
         Scanner scanner = new Scanner(System.in);
         int N = scanner.nextInt();
         int x = 0;
@@ -29,8 +35,9 @@ public class main {
             }
             N--;
         }
-        System.out.println("\nTree:");
-        tree.printTree();
+        // System.out.println("\nTree:");
+        // tree.printTree();
         // tree.inOrderTraversal(tree.root);
     }
 }
+    
