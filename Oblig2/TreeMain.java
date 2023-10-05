@@ -2,6 +2,9 @@ import java.util.Scanner;
 class TreeMain {
     
     /*
+     * run: java TreeMain < inputs/input_100
+     * cmp with exp-out: java TreeMain <inputs/input_100 | cmp - outputs/output_100
+     * 
      * To run the AVL version all you need to do is comment out the BST
      * and "uncomment" AVLTree
      *
