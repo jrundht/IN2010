@@ -1,0 +1,43 @@
+#Oppgave 2a
+Input: et sortert array med heltall
+Output: skriver ut elementene i den rekkefølgen som skal til for å få et balansert søketre
+Procedure Balancer(array)
+    if array.size() < 2 do:
+        print(array[0])
+        return
+    if array.size() < 3 do:
+        print(array[1])
+        print(array[0])
+        return
+    print(array[array.size()/2])
+
+    balancer(array[array.size()/2 + 1 : array.size()-1])
+    balancer(array[0 : array.size()/2 - 1])
+
+#Oppgave 2b
+Input: en prioritetskø av heltall
+Output: skriver ut elementene i den rekkefølgen som skal til for å få et balansert søketre
+Procedure Balancer(heap)
+    if heap.size() < 2 do
+        print(heap.poll())
+        return
+    if heap.size < 3 do
+        tmp <- heap.poll()
+        print(heap.poll())
+        print(tmp)
+        return
+    
+    x <- heap.size() / 2
+    heap1 <- empty heap
+    for i <- 0 to i < x-1 do
+        heap1.offer(heap.poll())
+
+    print(heap.poll())
+
+    heap2 <- empty heap
+    for i <- 0 to i < x-1 do
+        heap2.offer(heap.poll())
+    balancer(heap2)
+    balancer(heap1)
+
+    
