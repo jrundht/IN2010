@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 public class BinaryHeap {
 
     // ArrayList<Integer> heap = new ArrayList<>();
@@ -47,21 +48,22 @@ public class BinaryHeap {
         return x;
     }
 
+    /*
+     * run: seq 20 | java BinaryHeap.java
+     * seq 20 creates an ordered array from 1-20
+     */
     public static void main(String[] args){
         ArrayList<Integer> heap = new ArrayList<>();
-        BinaryHeap.insert(heap, 1);
-        BinaryHeap.insert(heap, 2);
-        BinaryHeap.insert(heap, 7);
-        BinaryHeap.insert(heap, 5);
-        BinaryHeap.insert(heap, 3);
-        BinaryHeap.insert(heap, 11);
-        BinaryHeap.insert(heap, 10);
-        BinaryHeap.insert(heap, 29);
-        BinaryHeap.insert(heap, 4);
-        BinaryHeap.insert(heap, 9);
+        Scanner scanner = new Scanner(System.in);
+        while(scanner.hasNext()){
+            if(scanner.nextLine().equals("n")) break;
+            BinaryHeap.insert(heap, scanner.nextInt());
+        }
+        
         System.out.println(heap);
         BinaryHeap.removeMin(heap);
         System.out.println(heap);
+        scanner.close();
     }
 
 }
