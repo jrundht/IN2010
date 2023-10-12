@@ -1,13 +1,17 @@
+import java.util.Objects;
+
 public class Vertex {
-    private int id;
+    private String id;
     private String name;
 
-    Vertex(int id, String name){
+    Vertex(String id, String name){
         this.id = id;
         this.name = name;
     }
 
-    public int getID(){ return id;}
+    public String getID(){ return id;}
 
     public String getName(){ return name;}
+
 }
+ 

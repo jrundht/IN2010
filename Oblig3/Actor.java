@@ -1,6 +1,6 @@
 
 class Actor extends Vertex{
-    Actor(int id, String name) {
+    Actor(String id, String name) {
         super(id, name);
     }
 }
