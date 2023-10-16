@@ -7,4 +7,9 @@ class Movie extends Vertex{
     }
 
     public Double getRating(){return rating;}
+
+    @Override
+    public String toString(){
+        return super.toString() + " (" + rating + ")";
+    }
 }
