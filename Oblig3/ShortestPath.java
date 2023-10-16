@@ -11,6 +11,48 @@ public class ShortestPath{
     /*
      * Takes in a Graph and an actor, and finds the shortest path to all other actors
      */
+    public static ArrayList<Vertex> shortestPathFrom2(Graph G, Actor s, Actor t){ //bfs
+        HashMap<Vertex, Vertex> parents = new HashMap<>();
+        parents.put(s, null);
+
+        Deque<Tuple<Double, Vertex>> queue = new ArrayDeque<>();
+        queue.add(new Tuple<Double, Vertex>(0.0, s));
+
+        HashMap<Vertex,Double> dist = new HashMap<>();
+        dist.put(s, (double) 0);
+
+        outerloop: //labeled break to jump out of nested loop
+        while(!queue.isEmpty()){
+            Tuple<Double, Vertex> pair = queue.removeFirst();
+            double cost = pair.element1;
+            Vertex u = pair.element2;
+
+            if(cost != dist.getOrDefault(u, Double.MAX_VALUE)) continue;
+
+            for(Vertex v : G.E.get(u)){
+                double c = cost + G.w.get((new Edge(u, v)));
+                if(c < dist.getOrDefault(v, Double.POSITIVE_INFINITY)){
+                    dist.put(v, c);
+                    queue.addLast(new Tuple<Double, Vertex>(c, v));
+                    parents.put(v, u);
+                }
+                if(v.equals(t)) break outerloop;
+            }
+        }
+
+        Vertex v = t;
+        if(!parents.containsKey(v)) return null;
+        
+        ArrayList<Vertex> path = new ArrayList<>();
+        while(v != null){
+            path.add(v);
+            v = parents.get(v);
+        }
+        Collections.reverse(path);
+
+        return path;    
+    }
+
     public static HashMap<Vertex, Vertex> shortestPathFrom(Graph G, Actor s){
         HashMap<Vertex, Vertex> parents = new HashMap<>();
         parents.put(s, null);
@@ -55,8 +97,37 @@ public class ShortestPath{
         
         return path;    
     }
-    
-    public static HashMap<Vertex, Vertex> chillestPathFrom(Graph G, Actor s){
+
+    public static ArrayList<Vertex> bfsShortestPath(Graph G,  Actor s, Actor t){
+        HashMap<Vertex, Vertex> parents = new HashMap<>();
+        parents.put(s, null);
+        Deque<Vertex> queue = new ArrayDeque<>();
+        queue.addLast(s); //O(1)
+
+        outerloop:
+        while(!queue.isEmpty()){
+            Vertex u = queue.removeFirst();
+            for(Vertex v : G.E.get(u)){
+                if(!parents.containsKey(v)){
+                    parents.put(v, u);
+                    queue.addLast(v);
+                }
+                if(v.equals(t)) break outerloop;
+                
+            }
+        }
+        
+        Vertex v = t;
+        ArrayList<Vertex> path = new ArrayList<>();
+        while(v != null){
+            path.add(v);
+            v = parents.get(v);
+        }
+        Collections.reverse(path);
+        return path;
+    }
+
+    public static HashMap<Vertex, Vertex> chillestPathFrom(Graph G, Actor s, Actor t){
         HashMap<Vertex, Vertex> parents = new HashMap<>();
         parents.put(s, null);
 
@@ -86,7 +157,7 @@ public class ShortestPath{
     }
 
     public static ArrayList<Vertex> chillestPathBetween(Graph G, Actor s, Actor t){
-        HashMap<Vertex, Vertex> parents = chillestPathFrom(G, s);
+        HashMap<Vertex, Vertex> parents = chillestPathFrom(G, s, t);
         
         Vertex v = t;
         if(!parents.containsKey(v)) return null;
