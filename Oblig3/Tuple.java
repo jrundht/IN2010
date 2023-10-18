@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Tuple<E, T> {
+public class Tuple<E extends Comparable<E>, T> implements Comparable<Tuple<E, T>>{
     E element1;
     T element2;
 
@@ -28,4 +28,10 @@ public class Tuple<E, T> {
     public String toString(){
         return "(" + element1 + ", " + element2 + ")";
     }
+
+    @Override
+    public int compareTo(Tuple<E, T> o) {
+        return element1.compareTo(o.element1);
+    }
+
 }
