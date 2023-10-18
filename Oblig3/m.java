@@ -77,10 +77,10 @@ public class m{
     }
 
     public static void main(String[] args){
-        ArrayList<String> movies = FileReadr.readFile("six-degrees-of-imdb-ressursside-main/movies.tsv"); //O(N)
+        ArrayList<String> movies = FileReadr.readFile("movies.tsv"); //O(N)
         graph.addMovies(movies);
 
-        ArrayList<String> actors = FileReadr.readFile("six-degrees-of-imdb-ressursside-main/actors.tsv"); //O(N)
+        ArrayList<String> actors = FileReadr.readFile("actors.tsv"); //O(N)
         graph.addActors(actors);
 
         // Find path between two actors
