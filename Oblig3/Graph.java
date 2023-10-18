@@ -10,14 +10,20 @@ public class Graph {
 
     public Vertex addVertex(String data){
         Vertex newVertex = null;
-        String[] values = data.split("\t");
-        if(data.charAt(0) == 't'){
-            newVertex = new Movie(values[0], values[1], Double.parseDouble(values[2]));
-        }else{
-            newVertex = new Actor(values[0], values[1]);
+        try {
+            String[] values = data.split("\t");
+            if(data.charAt(0) == 't'){
+                newVertex = new Movie(values[0], values[1], Double.parseDouble(values[2]));
+                if(values.length == 4) ( (Movie) newVertex).year = Integer.parseInt(values[3]);
+            }else{
+                newVertex = new Actor(values[0], values[1]);
+            }
+            
+            V.add(newVertex);
+            vertices.put(values[0], newVertex);
+        } catch (NumberFormatException e) {
+            System.err.println("Error parsing: " + e.getMessage());
         }
-        V.add(newVertex);
-        vertices.put(values[0], newVertex);
         return newVertex;
     }
 
