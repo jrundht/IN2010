@@ -15,7 +15,7 @@ public class m{
         boolean goOn = true;
         System.out.print("\nWrite the name of two actors you want to connect, separate the names with a tab. (quit? press n): ");
         String inp = scanner.nextLine();
-        ArrayList<Vertex> path = ShortestPath.chillestPathBetween(g, graph.actors.get("Donald Glover"), graph.actors.get("Jeremy Irons"));
+        ArrayList<Vertex> path = ShortestPath.chillestPathFrom(g, graph.actors.get("Donald Glover"), graph.actors.get("Jeremy Irons"));
 
         while(goOn){
             if(inp.equals("n")) return;
@@ -30,7 +30,7 @@ public class m{
                     System.out.println("===[ " + path.get(i) + " ] ===> " + path.get(++i));
                     
                 }
-                path = ShortestPath.chillestPathBetween(g, name1, name2);
+                path = ShortestPath.chillestPathFrom(g, name1, name2);
                 System.out.println("\nMost enjoyable path " + name1 + " and " + name2 + " are connected through:");
                 for(int i = 1; i < path.size()-1; i ++){
                     System.out.println("===[ " + path.get(i) + " ] ===> " + path.get(++i));
@@ -61,7 +61,7 @@ public class m{
     }
     
     public static void chillest(Actor actor1, Actor actor2){
-        ArrayList<Vertex> path = ShortestPath.chillestPathBetween(g,actor1, actor2);
+        ArrayList<Vertex> path = ShortestPath.chillestPathFrom(g,actor1, actor2);
         // System.out.println("\n" + "Most enjoyable path: " + actor1 + " and " + actor2 + " are connected through:");
         System.out.println("\n" + actor1);
         double w = 0.0;
