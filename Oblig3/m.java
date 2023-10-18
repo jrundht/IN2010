@@ -24,7 +24,7 @@ public class m{
             Actor name2 = graph.findActor(names[1]);
 
             if(name1 != null && name2 != null){
-                path = ShortestPath.shortestPathBetween(g, name1, name2);
+                path = ShortestPath.bfsShortestPath(g, name1, name2);
                 System.out.println("\nShortest path " + name1 + " and " + name2 + " are connected through:");
                 for(int i = 1; i < path.size()-1; i ++){
                     System.out.println("===[ " + path.get(i) + " ] ===> " + path.get(++i));
