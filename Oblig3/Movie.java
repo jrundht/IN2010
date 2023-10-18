@@ -1,5 +1,6 @@
 class Movie extends Vertex{
     double rating;
+    int year = 0;
 
     Movie(String id, String name, double rating) {
         super(id, name);
