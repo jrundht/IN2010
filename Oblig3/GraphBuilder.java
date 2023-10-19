@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
 
 public class GraphBuilder {
     Graph graph = new Graph();
@@ -9,7 +8,7 @@ public class GraphBuilder {
 
     public void addMovies(ArrayList<String> lines){
         for(String line : lines){
-            String[] parts = line.split("\t");
+            // String[] parts = line.split("\t");
             Vertex v = graph.addVertex(line);
             graph.E.put(v, new HashSet<>()); //in case somehow a movie is twice in the same list
         }

@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 public class Vertex {
     private String id;
     private String name;

@@ -13,7 +13,6 @@ public class Edge{
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        @SuppressWarnings("unchecked")
         Edge pair = (Edge) obj;
         return element1.equals(pair.element1) && element2.equals(pair.element2);
     }

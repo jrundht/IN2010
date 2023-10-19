@@ -1,9 +1,7 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.TreeMap;
 import java.util.Scanner;
 
-public class m{
+public class mainP {
     static GraphBuilder graph = new GraphBuilder();
     static Graph g = graph.graph;
 
@@ -53,7 +51,7 @@ public class m{
         // System.out.println("\n" + "Shortest path: " + actor1 + " and " + actor2 + " are connected through:");
         System.out.println("\n" + actor1);
         for(int i = 1; i < path.size()-1; i ++){
-            System.out.println("===[ " + path.get(i) + " ] ===> " + path.get(++i));
+            System.out.println("    ===[ " + path.get(i) + " ] ===> " + path.get(++i));
         }
     }
     
@@ -61,26 +59,24 @@ public class m{
         ArrayList<Vertex> path = ShortestPath.chillestPathFrom(g,actor1, actor2);
         // System.out.println("\n" + "Most enjoyable path: " + actor1 + " and " + actor2 + " are connected through:");
         System.out.println("\n" + actor1);
-        double w = 0.0;
         for(int i = 1; i < path.size()-1; i ++){
-            if(path.get(i) instanceof Movie){
-                Movie m = (Movie) path.get(i);
-                w += 10 - m.getRating();
-            }
-            System.out.println("===[ " + path.get(i) + " ] ===> " + path.get(++i));
+            System.out.println("    ===[ " + path.get(i) + " ] ===> " + path.get(++i));
         }
-        System.out.printf("Total weight: %,.1f", w);
-        System.out.println();
     }
 
+    /*
+     * These files are too big for the system, hase to be run with aditional memory allocated to the process:
+     * run: time java -Xms256m -Xmx4g mainP
+     * this graph gives a longer path to shortest paths than the smaller datatsets used in m.java..?
+     */
     public static void main(String[] args){
-        ArrayList<String> movies = FileReadr.readFile("movies.tsv"); //O(N)
+        ArrayList<String> movies = FileReadr.readFile("six-degrees-of-imdb-ressursside-main/movies_big_file.tsv"); //O(N)
         graph.addMovies(movies);
 
-        ArrayList<String> actors = FileReadr.readFile("actors.tsv"); //O(N)
+        ArrayList<String> actors = FileReadr.readFile("six-degrees-of-imdb-ressursside-main/actors2.tsv"); //O(N)
         graph.addActors(actors);
 
-        // Find path between two actors
+        // Fine path between two actors
         // lookUp();
 
         // ShortestPath.bfsShortestPath(g,graph.findActor("Donald Glover"), graph.findActor("Jeremy Irons"));
@@ -96,7 +92,7 @@ public class m{
        
         bfs(graph.findActor("Tuva Novotny"), graph.findActor("Michael K. Williams"));
 
-        //Chillest path
+        // Chillest path
         System.out.println("\nChillest path:");
         chillest(graph.findActor("Donald Glover"), graph.findActor("Jeremy Irons"));
 
@@ -109,11 +105,11 @@ public class m{
         chillest(graph.findActor("Tuva Novotny"), graph.findActor("Michael K. Williams"));
         
         // Components
-        HashMap<Integer, Integer> components = ShortestPath.components(g);
-        TreeMap<Integer, Integer> sortedMap = new TreeMap<>(components);
-        System.out.println();
-        for(int i : sortedMap.keySet()){
-            System.out.println("There are " + sortedMap.get(i) + " components of size " + i);
-        }
+        // HashMap<Integer, Integer> components = ShortestPath.components(g);
+        // TreeMap<Integer, Integer> sortedMap = new TreeMap<>(components);
+        // System.out.println();
+        // for(int i : sortedMap.keySet()){
+        //     System.out.println("There are " + sortedMap.get(i) + " components of size " + i);
+        // }
     }
-}
+}    
