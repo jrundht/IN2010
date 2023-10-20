@@ -8,7 +8,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-public class ShortestPath{
+public class Paths{
     /*
      * Takes in a Graph and an actor, and finds the shortest path to all other actors
      */
