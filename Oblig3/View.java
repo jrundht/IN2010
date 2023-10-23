@@ -69,13 +69,14 @@ public class View {
     private void findAndDisplayPaths() {
         Actor actor1 = graph.findActor(actor1Field.getText().trim());
         Actor actor2 = graph.findActor(actor2Field.getText().trim());
-        
+        String existingText = resultArea.getText();
+
         if(actor1 == null){
-            resultArea.setText(actor1Field.getText().trim() + " is not in the dataset");
+            resultArea.setText(existingText + "\n" + actor1Field.getText().trim() + " is not in the dataset");
             return;
         }
         if(actor2 == null){
-            resultArea.setText(actor2Field.getText().trim() + " is not in the dataset");
+            resultArea.setText(existingText + "\n" + actor2Field.getText().trim() + " is not in the dataset");
             return;
         }
 
@@ -97,8 +98,8 @@ public class View {
             output.append("===[ " + chillestPath.get(i) + " ] ===> " + chillestPath.get(++i) + "\n");
             
         }
-
-        String existingText = resultArea.getText();
+        actor1Field.setText("");
+        actor2Field.setText("");
         resultArea.setText(existingText + "\n" + output.toString());
     }
     
@@ -115,18 +116,15 @@ public class View {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            GraphBuilder graph = new GraphBuilder();
+        GraphBuilder graph = new GraphBuilder();
 
-            // Load data
-            ArrayList<String> movies = FileReadr.readFile("movies.tsv"); //O(N)
-            graph.addMovies(movies);
+        ArrayList<String> movies = FileReadr.readFile("movies.tsv"); //O(N)
+        graph.addMovies(movies);
 
-            ArrayList<String> actors = FileReadr.readFile("actors.tsv"); //O(N)
-            graph.addActors(actors);
+        ArrayList<String> actors = FileReadr.readFile("actors.tsv"); //O(N)
+        graph.addActors(actors);
 
-            // Start GUI
-            new View(graph);
-        });
+        // Start GUI
+        new View(graph);
     }
 }
