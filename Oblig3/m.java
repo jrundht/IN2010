@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Scanner;
@@ -12,7 +13,7 @@ public class m{
         boolean goOn = true;
         System.out.print("\nWrite the name of two actors you want to connect, separate the names with a tab. (quit? press n): ");
         String inp = scanner.nextLine();
-        ArrayList<Vertex> path = ShortestPath.chillestPathFrom(g, graph.actors.get("Donald Glover"), graph.actors.get("Jeremy Irons"));
+        ArrayList<Vertex> path = Paths.chillestPathFrom(g, graph.actors.get("Donald Glover"), graph.actors.get("Jeremy Irons"));
 
         while(goOn){
             if(inp.equals("n")) return;
@@ -21,13 +22,13 @@ public class m{
             Actor name2 = graph.findActor(names[1]);
 
             if(name1 != null && name2 != null){
-                path = ShortestPath.bfsShortestPath(g, name1, name2);
+                path = Paths.bfsShortestPath(g, name1, name2);
                 System.out.println("\nShortest path " + name1 + " and " + name2 + " are connected through:");
                 for(int i = 1; i < path.size()-1; i ++){
                     System.out.println("===[ " + path.get(i) + " ] ===> " + path.get(++i));
                     
                 }
-                path = ShortestPath.chillestPathFrom(g, name1, name2);
+                path = Paths.chillestPathFrom(g, name1, name2);
                 System.out.println("\nMost enjoyable path " + name1 + " and " + name2 + " are connected through:");
                 for(int i = 1; i < path.size()-1; i ++){
                     System.out.println("===[ " + path.get(i) + " ] ===> " + path.get(++i));
@@ -49,7 +50,7 @@ public class m{
     }
 
     public static void bfs(Actor actor1, Actor actor2){
-        ArrayList<Vertex> path = ShortestPath.bfsShortestPath(g,actor1, actor2);
+        ArrayList<Vertex> path = Paths.bfsShortestPath(g,actor1, actor2);
         // System.out.println("\n" + "Shortest path: " + actor1 + " and " + actor2 + " are connected through:");
         System.out.println("\n" + actor1);
         for(int i = 1; i < path.size()-1; i ++){
@@ -58,7 +59,7 @@ public class m{
     }
     
     public static void chillest(Actor actor1, Actor actor2){
-        ArrayList<Vertex> path = ShortestPath.chillestPathFrom(g,actor1, actor2);
+        ArrayList<Vertex> path = Paths.chillestPathFrom(g,actor1, actor2);
         // System.out.println("\n" + "Most enjoyable path: " + actor1 + " and " + actor2 + " are connected through:");
         System.out.println("\n" + actor1);
         double w = 0.0;
@@ -109,7 +110,7 @@ public class m{
         chillest(graph.findActor("Tuva Novotny"), graph.findActor("Michael K. Williams"));
         
         // Components
-        HashMap<Integer, Integer> components = ShortestPath.components(g);
+        HashMap<Integer, Integer> components = Paths.components(g);
         TreeMap<Integer, Integer> sortedMap = new TreeMap<>(components);
         System.out.println();
         for(int i : sortedMap.keySet()){
