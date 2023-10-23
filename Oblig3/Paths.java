@@ -121,4 +121,29 @@ public class Paths{
         }
         return components;
     }
+
+    public static void bfs(Graph G, Actor actor1, Actor actor2){
+        ArrayList<Vertex> path = Paths.bfsShortestPath(G,actor1, actor2);
+        // System.out.println("\n" + "Shortest path: " + actor1 + " and " + actor2 + " are connected through:");
+        System.out.println("\n" + actor1);
+        for(int i = 1; i < path.size()-1; i ++){
+            System.out.println("===[ " + path.get(i) + " ] ===> " + path.get(++i));
+        }
+    }
+    
+    public static void chillest(Graph G, Actor actor1, Actor actor2){
+        ArrayList<Vertex> path = Paths.chillestPathFrom(G,actor1, actor2);
+        // System.out.println("\n" + "Most enjoyable path: " + actor1 + " and " + actor2 + " are connected through:");
+        System.out.println("\n" + actor1);
+        double w = 0.0;
+        for(int i = 1; i < path.size()-1; i ++){
+            if(path.get(i) instanceof Movie){
+                Movie m = (Movie) path.get(i);
+                w += 10 - m.getRating();
+            }
+            System.out.println("===[ " + path.get(i) + " ] ===> " + path.get(++i));
+        }
+        System.out.printf("Total weight: %,.1f", w);
+        System.out.println();
+    }
 }
