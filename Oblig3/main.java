@@ -1,20 +1,54 @@
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.TreeMap;
 
-public class main{
-    
+public class Main{
+    static GraphBuilder graph = new GraphBuilder();
+    static Graph g = graph.graph;
+
     public static void main(String[] args){
-        GraphBuilder graph = new GraphBuilder();
-        ArrayList<String> movies = FileReadr.readFile("six-degrees-of-imdb-ressursside-main/movies.tsv"); //O(N)
+        ArrayList<String> movies = FileReadr.readFile("movies.tsv"); //O(N)
         graph.addMovies(movies);
 
-        ArrayList<String> actors = FileReadr.readFile("six-degrees-of-imdb-ressursside-main/actors.tsv"); //O(N)
+        ArrayList<String> actors = FileReadr.readFile("actors.tsv"); //O(N)
         graph.addActors(actors);
 
-        System.out.println("Exp nodes: " + (movies.size()+actors.size()));
+        // Find path between two actors with input
+        // lookUp();
+
+        //print number of nodes/edges
         graph.printNodesEdges();
+
+        // Shortest path with bfs
+        System.out.print("\nShortest path:");
+        Paths.bfs(g, graph.findActor("Donald Glover"), graph.findActor("Jeremy Irons"));
+        
+        Paths.bfs(g, graph.findActor("Scarlett Johansson"), graph.findActor("Emma Mackey"));
+        
+        Paths.bfs(g, graph.findActor("Carrie Coon"), graph.findActor("Julie Delpy"));
+        
+        Paths.bfs(g, graph.findActor("Christian Bale"), graph.findActor("Lupita Nyong'o"));
+       
+        Paths.bfs(g, graph.findActor("Tuva Novotny"), graph.findActor("Michael K. Williams"));
+
+        //Chillest path
+        System.out.print("\nChillest path:");
+        Paths.chillest(g, graph.findActor("Donald Glover"), graph.findActor("Jeremy Irons"));
+
+        Paths.chillest(g, graph.findActor("Scarlett Johansson"), graph.findActor("Emma Mackey"));
+
+        Paths.chillest(g, graph.findActor("Carrie Coon"), graph.findActor("Julie Delpy"));
+        
+        Paths.chillest(g, graph.findActor("Christian Bale"), graph.findActor("Lupita Nyong'o"));
+       
+        Paths.chillest(g, graph.findActor("Tuva Novotny"), graph.findActor("Michael K. Williams"));
+        
+        // Components
+        HashMap<Integer, Integer> components = Paths.components(g);
+        TreeMap<Integer, Integer> sortedMap = new TreeMap<>(components); //sort components
+        System.out.println();
+        for(int i : sortedMap.keySet()){
+            System.out.println("There are " + sortedMap.get(i) + " components of size " + i);
+        }
     }
 }
