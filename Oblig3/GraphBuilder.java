@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class GraphBuilder {
     Graph graph = new Graph();
-    HashMap<String, Actor> actors = new HashMap<>();
+    HashMap<String, Actor> actors = new HashMap<>(150000);
 
     public void addMovies(ArrayList<String> lines){
         for(String line : lines){
