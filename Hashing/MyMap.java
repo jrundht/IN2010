@@ -17,9 +17,9 @@ abstract class MyMap<K, V>{
         }
     }
     public int hash(K key){
-        return Objects.hashCode(key) % N;
-        // return Math.floorMod(Objects.hashCode(key), N);
+        return Math.floorMod(Objects.hashCode(key), N);
     }
+
     public int size(){
         return n;
     }
