@@ -4,5 +4,4 @@
 *.png
 *.docx
 *.pdf
-
-
+.DS_Store
